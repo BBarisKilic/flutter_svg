@@ -6,7 +6,6 @@ import 'dart:ui' show window;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:flutter_test/flutter_test.dart';
 
 class _TolerantComparator extends LocalFileComparator {
@@ -57,6 +56,23 @@ void main() {
     fakeResponse = FakeHttpClientResponse();
     fakeRequest = FakeHttpClientRequest(fakeResponse);
     fakeHttpClient = FakeHttpClient(fakeRequest);
+  });
+
+  testWidgets(
+      'SvgPicture can be instantiated with the parameterized constructor',
+      (WidgetTester tester) async {
+    const SvgStringLoader svgStringLoader = SvgStringLoader(simpleSvg);
+    final GlobalKey key = GlobalKey();
+
+    expect(
+      SvgPicture(
+        svgStringLoader,
+        key: key,
+        width: 100.0,
+        height: 100.0,
+      ),
+      isNotNull,
+    );
   });
 
   testWidgets(
