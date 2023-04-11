@@ -68,8 +68,77 @@ void main() {
       SvgPicture(
         svgStringLoader,
         key: key,
-        width: 100.0,
-        height: 100.0,
+      ),
+      isNotNull,
+    );
+  });
+
+  testWidgets(
+      'SvgPicture can be instantiated with the named constructor called asset',
+      (WidgetTester tester) async {
+    final GlobalKey key = GlobalKey();
+
+    expect(
+      SvgPicture.asset(
+        'test.svg',
+        key: key,
+      ),
+      isNotNull,
+    );
+  });
+
+  testWidgets(
+      'SvgPicture can be instantiated with the named constructor called network',
+      (WidgetTester tester) async {
+    final GlobalKey key = GlobalKey();
+
+    expect(
+      SvgPicture.network(
+        'test.svg',
+        key: key,
+      ),
+      isNotNull,
+    );
+  });
+
+  testWidgets(
+      'SvgPicture can be instantiated with the named constructor called file',
+      (WidgetTester tester) async {
+    final File file = File('');
+    final GlobalKey key = GlobalKey();
+
+    expect(
+      SvgPicture.file(
+        file,
+        key: key,
+      ),
+      isNotNull,
+    );
+  });
+
+  testWidgets(
+      'SvgPicture can be instantiated with the named constructor called memory',
+      (WidgetTester tester) async {
+    final GlobalKey key = GlobalKey();
+
+    expect(
+      SvgPicture.memory(
+        svgBytes,
+        key: key,
+      ),
+      isNotNull,
+    );
+  });
+
+  testWidgets(
+      'SvgPicture can be instantiated with the named constructor called string',
+      (WidgetTester tester) async {
+    final GlobalKey key = GlobalKey();
+
+    expect(
+      SvgPicture.string(
+        svgStr,
+        key: key,
       ),
       isNotNull,
     );
