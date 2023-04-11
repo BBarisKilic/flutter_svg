@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:ui' show window;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -63,7 +63,6 @@ void main() {
       (WidgetTester tester) async {
     const SvgStringLoader svgStringLoader = SvgStringLoader(simpleSvg);
     final GlobalKey key = GlobalKey();
-
     expect(
       SvgPicture(
         svgStringLoader,
@@ -77,7 +76,6 @@ void main() {
       'SvgPicture can be instantiated with the named constructor called asset',
       (WidgetTester tester) async {
     final GlobalKey key = GlobalKey();
-
     expect(
       SvgPicture.asset(
         'test.svg',
@@ -91,7 +89,6 @@ void main() {
       'SvgPicture can be instantiated with the named constructor called network',
       (WidgetTester tester) async {
     final GlobalKey key = GlobalKey();
-
     expect(
       SvgPicture.network(
         'test.svg',
@@ -106,7 +103,6 @@ void main() {
       (WidgetTester tester) async {
     final File file = File('');
     final GlobalKey key = GlobalKey();
-
     expect(
       SvgPicture.file(
         file,
@@ -120,7 +116,6 @@ void main() {
       'SvgPicture can be instantiated with the named constructor called memory',
       (WidgetTester tester) async {
     final GlobalKey key = GlobalKey();
-
     expect(
       SvgPicture.memory(
         svgBytes,
@@ -134,14 +129,25 @@ void main() {
       'SvgPicture can be instantiated with the named constructor called string',
       (WidgetTester tester) async {
     final GlobalKey key = GlobalKey();
-
     expect(
       SvgPicture.string(
         svgStr,
         key: key,
+        color: Colors.red,
       ),
       isNotNull,
     );
+  });
+
+  testWidgets(
+      'SvgPicture has a working placeholder builder that builds LimitedBox',
+      (WidgetTester tester) async {
+    final WidgetBuilder defaultPlaceholderBuilder =
+        SvgPicture.defaultPlaceholderBuilder;
+    await tester.pumpWidget(Builder(
+      builder: (BuildContext context) => defaultPlaceholderBuilder(context),
+    ));
+    expect(find.byType(LimitedBox), findsOneWidget);
   });
 
   testWidgets(
